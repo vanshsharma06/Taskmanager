@@ -14,7 +14,7 @@ function Signup() {
       return
     }
     try {
-      await axios.post('http://localhost:3000/api/auth/signup', form)
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, form)
       navigate('/')
     } catch (err) {
       setError(err.response?.data?.error || 'Signup failed. Please try again.')

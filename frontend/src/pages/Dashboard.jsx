@@ -37,7 +37,7 @@ function Dashboard() {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/api/projects', { headers })
+      const res = await axios.get('$\{import.meta.env.VITE_API_URL\}/api/projects', { headers })
       setProjects(res.data)
     } catch (err) {
       setError('Failed to load projects')
@@ -47,7 +47,7 @@ function Dashboard() {
   const createProject = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3000/api/projects', newProject, { headers })
+      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/projects', newProject, { headers })
       setNewProject({ name: '', description: '' })
       fetchProjects()
     } catch (err) {
@@ -57,7 +57,7 @@ function Dashboard() {
 
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/projects/${id}`, { headers })
+      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/projects/${id}`, { headers })
       fetchProjects()
     } catch (err) {
       setError('Failed to delete project')
@@ -66,7 +66,7 @@ function Dashboard() {
 
   const updateProfile = async () => {
     try {
-      await axios.put('http://localhost:3000/api/users/profile', { username: editName }, { headers })
+      await axios.put('$\{import.meta.env.VITE_API_URL\}/api/users/profile', { username: editName }, { headers })
       setUpdateMsg('Profile updated!')
       setEditMode(false)
       setTimeout(() => setUpdateMsg(''), 2000)

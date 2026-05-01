@@ -36,9 +36,9 @@ function Tasks() {
   const fetchAll = async () => {
     try {
       const [t, p, u] = await Promise.all([
-        axios.get('http://localhost:3000/api/tasks', { headers }),
-        axios.get('http://localhost:3000/api/projects', { headers }),
-        axios.get('http://localhost:3000/api/users', { headers })
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/tasks', { headers }),
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/projects', { headers }),
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/users', { headers })
       ])
       setTasks(t.data)
       setProjects(p.data)
@@ -51,7 +51,7 @@ function Tasks() {
   const createTask = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3000/api/tasks', newTask, { headers })
+      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/tasks', newTask, { headers })
       setNewTask({ title: '', description: '', project_id: '', assigned_to: '', priority: 'Medium', due_date: '' })
       fetchAll()
     } catch (err) {
@@ -61,7 +61,7 @@ function Tasks() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:3000/api/tasks/${id}`, { status }, { headers })
+      await axios.put(`$\{import.meta.env.VITE_API_URL\}/api/tasks/${id}`, { status }, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to update status')
@@ -70,7 +70,7 @@ function Tasks() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/tasks/${id}`, { headers })
+      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/tasks/${id}`, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to delete task')

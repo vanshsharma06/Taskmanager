@@ -36,8 +36,8 @@ function Teams() {
   const fetchAll = async () => {
     try {
       const [t, u] = await Promise.all([
-        axios.get('http://localhost:3000/api/teams', { headers }),
-        axios.get('http://localhost:3000/api/users', { headers })
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/teams', { headers }),
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/users', { headers })
       ])
       setTeams(t.data)
       setUsers(u.data)
@@ -49,7 +49,7 @@ function Teams() {
   const createTeam = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:3000/api/teams', newTeam, { headers })
+      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/teams', newTeam, { headers })
       setNewTeam({ name: '', description: '' })
       fetchAll()
     } catch (err) {
@@ -59,7 +59,7 @@ function Teams() {
 
   const deleteTeam = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/teams/${id}`, { headers })
+      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/teams/${id}`, { headers })
       if (selectedTeam?.id === id) setSelectedTeam(null)
       fetchAll()
     } catch (err) {
@@ -71,7 +71,7 @@ function Teams() {
     e.preventDefault()
     if (!addUserId || !selectedTeam) return
     try {
-      await axios.post(`http://localhost:3000/api/teams/${selectedTeam.id}/members`, { user_id: addUserId }, { headers })
+      await axios.post(`$\{import.meta.env.VITE_API_URL\}/api/teams/${selectedTeam.id}/members`, { user_id: addUserId }, { headers })
       setAddUserId('')
       fetchAll()
     } catch (err) {
@@ -81,7 +81,7 @@ function Teams() {
 
   const removeMember = async (teamId, userId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/teams/${teamId}/members/${userId}`, { headers })
+      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/teams/${teamId}/members/${userId}`, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to remove member')

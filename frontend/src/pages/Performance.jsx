@@ -36,8 +36,8 @@ function Performance() {
   const fetchAll = async () => {
     try {
       const [u, t] = await Promise.all([
-        axios.get('http://localhost:3000/api/performance', { headers }),
-        axios.get('http://localhost:3000/api/performance/teams', { headers })
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/performance', { headers }),
+        axios.get('$\{import.meta.env.VITE_API_URL\}/api/performance/teams', { headers })
       ])
       setUserData(u.data)
       setTeamData(t.data)
