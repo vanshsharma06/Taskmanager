@@ -36,9 +36,9 @@ function Tasks() {
   const fetchAll = async () => {
     try {
       const [t, p, u] = await Promise.all([
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/tasks', { headers }),
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/projects', { headers }),
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/users', { headers })
+        axios.get(`${import.meta.env.VITE_API_URL}/api/tasks`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/projects`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/users`, { headers })
       ])
       setTasks(t.data)
       setProjects(p.data)
@@ -51,7 +51,7 @@ function Tasks() {
   const createTask = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/tasks', newTask, { headers })
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask, { headers })
       setNewTask({ title: '', description: '', project_id: '', assigned_to: '', priority: 'Medium', due_date: '' })
       fetchAll()
     } catch (err) {
@@ -61,7 +61,7 @@ function Tasks() {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`$\{import.meta.env.VITE_API_URL\}/api/tasks/${id}`, { status }, { headers })
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, { status }, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to update status')
@@ -70,7 +70,7 @@ function Tasks() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/tasks/${id}`, { headers })
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to delete task')
@@ -89,12 +89,10 @@ function Tasks() {
   return (
     <div style={{ minHeight: '100vh', background: '#0F172A' }}>
 
-      {/* Sidebar Overlay */}
       {sidebarOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }} />
       )}
 
-      {/* Sidebar */}
       <div ref={sidebarRef} style={{
         position: 'fixed', top: 0, right: sidebarOpen ? 0 : '-320px', width: '300px', height: '100vh',
         background: '#1E293B', zIndex: 50, transition: 'right 0.3s ease',
@@ -142,11 +140,10 @@ function Tasks() {
         </div>
       </div>
 
-      {/* Navbar */}
       <nav style={{ background: '#1E293B', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.5rem', cursor: 'pointer' }}>✅</span>
-<span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
+          <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <button onClick={() => navigate('/tasks')} style={{ padding: '0.5rem 1rem', background: '#10B981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
@@ -160,7 +157,6 @@ function Tasks() {
               📊 Performance
             </button>
           )}
-          {/* ✅ Profile Button */}
           <button onClick={() => setSidebarOpen(true)}
             style={{
               width: '38px', height: '38px', borderRadius: '50%',
@@ -174,7 +170,6 @@ function Tasks() {
         </div>
       </nav>
 
-      {/* Main Content - Same rakha */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem 1rem' }}>
         <div style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#E2E8F0' }}>📋 Tasks</h2>

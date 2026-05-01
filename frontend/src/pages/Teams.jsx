@@ -36,8 +36,8 @@ function Teams() {
   const fetchAll = async () => {
     try {
       const [t, u] = await Promise.all([
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/teams', { headers }),
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/users', { headers })
+        axios.get(`${import.meta.env.VITE_API_URL}/api/teams`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/users`, { headers })
       ])
       setTeams(t.data)
       setUsers(u.data)
@@ -49,7 +49,7 @@ function Teams() {
   const createTeam = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/teams', newTeam, { headers })
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/teams`, newTeam, { headers })
       setNewTeam({ name: '', description: '' })
       fetchAll()
     } catch (err) {
@@ -59,7 +59,7 @@ function Teams() {
 
   const deleteTeam = async (id) => {
     try {
-      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/teams/${id}`, { headers })
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/teams/${id}`, { headers })
       if (selectedTeam?.id === id) setSelectedTeam(null)
       fetchAll()
     } catch (err) {
@@ -71,7 +71,7 @@ function Teams() {
     e.preventDefault()
     if (!addUserId || !selectedTeam) return
     try {
-      await axios.post(`$\{import.meta.env.VITE_API_URL\}/api/teams/${selectedTeam.id}/members`, { user_id: addUserId }, { headers })
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/teams/${selectedTeam.id}/members`, { user_id: addUserId }, { headers })
       setAddUserId('')
       fetchAll()
     } catch (err) {
@@ -81,7 +81,7 @@ function Teams() {
 
   const removeMember = async (teamId, userId) => {
     try {
-      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/teams/${teamId}/members/${userId}`, { headers })
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/teams/${teamId}/members/${userId}`, { headers })
       fetchAll()
     } catch (err) {
       setError('Failed to remove member')
@@ -96,12 +96,10 @@ function Teams() {
   return (
     <div style={{ minHeight: '100vh', background: '#0F172A' }}>
 
-      {/* Sidebar Overlay */}
       {sidebarOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }} />
       )}
 
-      {/* Sidebar */}
       <div ref={sidebarRef} style={{
         position: 'fixed', top: 0, right: sidebarOpen ? 0 : '-320px', width: '300px', height: '100vh',
         background: '#1E293B', zIndex: 50, transition: 'right 0.3s ease',
@@ -149,11 +147,10 @@ function Teams() {
         </div>
       </div>
 
-      {/* Navbar */}
       <nav style={{ background: '#1E293B', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.5rem', cursor: 'pointer' }}>✅</span>
-<span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
+          <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <button onClick={() => navigate('/tasks')} style={{ padding: '0.5rem 1rem', background: '#10B981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
@@ -167,7 +164,6 @@ function Teams() {
               📊 Performance
             </button>
           )}
-          {/* ✅ Profile Button */}
           <button onClick={() => setSidebarOpen(true)}
             style={{
               width: '38px', height: '38px', borderRadius: '50%',
@@ -181,7 +177,6 @@ function Teams() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem 1rem' }}>
         <div style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#E2E8F0' }}>👥 Teams</h2>

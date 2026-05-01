@@ -37,7 +37,7 @@ function Dashboard() {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get('$\{import.meta.env.VITE_API_URL\}/api/projects', { headers })
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects`, { headers })
       setProjects(res.data)
     } catch (err) {
       setError('Failed to load projects')
@@ -47,7 +47,7 @@ function Dashboard() {
   const createProject = async (e) => {
     e.preventDefault()
     try {
-      await axios.post('$\{import.meta.env.VITE_API_URL\}/api/projects', newProject, { headers })
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/projects`, newProject, { headers })
       setNewProject({ name: '', description: '' })
       fetchProjects()
     } catch (err) {
@@ -57,7 +57,7 @@ function Dashboard() {
 
   const deleteProject = async (id) => {
     try {
-      await axios.delete(`$\{import.meta.env.VITE_API_URL\}/api/projects/${id}`, { headers })
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/projects/${id}`, { headers })
       fetchProjects()
     } catch (err) {
       setError('Failed to delete project')
@@ -66,7 +66,7 @@ function Dashboard() {
 
   const updateProfile = async () => {
     try {
-      await axios.put('$\{import.meta.env.VITE_API_URL\}/api/users/profile', { username: editName }, { headers })
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/users/profile`, { username: editName }, { headers })
       setUpdateMsg('Profile updated!')
       setEditMode(false)
       setTimeout(() => setUpdateMsg(''), 2000)
@@ -119,38 +119,6 @@ function Dashboard() {
           <div style={{ color: '#64748B', fontSize: '0.8rem', marginTop: '0.25rem' }}>{user.email || ''}</div>
         </div>
 
-        {/* Update Profile
-        <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155' }}>
-          <div style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '0.75rem', fontWeight: '600' }}>UPDATE PROFILE</div>
-          {editMode ? (
-            <div>
-              <input
-                type="text"
-                value={editName}
-                onChange={e => setEditName(e.target.value)}
-                style={{ width: '100%', padding: '0.65rem 1rem', fontSize: '0.95rem', marginBottom: '0.75rem', borderRadius: '8px', boxSizing: 'border-box' }}
-                placeholder="New username"
-              />
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button onClick={updateProfile}
-                  style={{ flex: 1, padding: '0.6rem', background: 'linear-gradient(135deg, #6366F1, #8B5CF6)', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
-                  Save
-                </button>
-                <button onClick={() => setEditMode(false)}
-                  style={{ flex: 1, padding: '0.6rem', background: '#334155', color: '#94A3B8', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
-                  Cancel
-                </button>
-              </div>
-              {updateMsg && <p style={{ color: '#10B981', fontSize: '0.85rem', marginTop: '0.5rem', textAlign: 'center' }}>{updateMsg}</p>}
-            </div>
-          ) : (
-            <button onClick={() => setEditMode(true)}
-              style={{ width: '100%', padding: '0.65rem', background: '#334155', color: '#E2E8F0', border: '1px solid #475569', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
-              ✏️ Edit Username
-            </button>
-          )}
-        </div> */}
-
         {/* Navigation Links */}
         <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid #334155' }}>
           <div style={{ color: '#94A3B8', fontSize: '0.85rem', marginBottom: '0.75rem', fontWeight: '600' }}>NAVIGATION</div>
@@ -180,7 +148,7 @@ function Dashboard() {
       <nav style={{ background: '#1E293B', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.5rem', cursor: 'pointer' }}>✅</span>
-<span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
+          <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <button onClick={() => navigate('/tasks')} style={{ padding: '0.5rem 1rem', background: '#10B981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
@@ -194,7 +162,6 @@ function Dashboard() {
               📊 Performance
             </button>
           )}
-          {/* Profile Button */}
           <button onClick={() => setSidebarOpen(true)}
             style={{
               width: '38px', height: '38px', borderRadius: '50%',

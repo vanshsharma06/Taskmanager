@@ -36,8 +36,8 @@ function Performance() {
   const fetchAll = async () => {
     try {
       const [u, t] = await Promise.all([
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/performance', { headers }),
-        axios.get('$\{import.meta.env.VITE_API_URL\}/api/performance/teams', { headers })
+        axios.get(`${import.meta.env.VITE_API_URL}/api/performance`, { headers }),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/performance/teams`, { headers })
       ])
       setUserData(u.data)
       setTeamData(t.data)
@@ -75,12 +75,10 @@ function Performance() {
   return (
     <div style={{ minHeight: '100vh', background: '#0F172A' }}>
 
-      {/* Sidebar Overlay */}
       {sidebarOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40 }} />
       )}
 
-      {/* Sidebar */}
       <div ref={sidebarRef} style={{
         position: 'fixed', top: 0, right: sidebarOpen ? 0 : '-320px', width: '300px', height: '100vh',
         background: '#1E293B', zIndex: 50, transition: 'right 0.3s ease',
@@ -126,11 +124,10 @@ function Performance() {
         </div>
       </div>
 
-      {/* Navbar */}
       <nav style={{ background: '#1E293B', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxShadow: '0 2px 10px rgba(0,0,0,0.3)', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.5rem', cursor: 'pointer' }}>✅</span>
-<span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
+          <span onClick={() => navigate('/dashboard')} style={{ fontSize: '1.2rem', fontWeight: '700', color: '#6366F1', cursor: 'pointer' }}>TaskManager</span>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <button onClick={() => navigate('/tasks')} style={{ padding: '0.5rem 1rem', background: '#10B981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
@@ -142,7 +139,6 @@ function Performance() {
           <button onClick={() => navigate('/performance')} style={{ padding: '0.5rem 1rem', background: '#F59E0B', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: '600', fontSize: '0.9rem' }}>
             📊 Performance
           </button>
-          {/* ✅ Profile Button */}
           <button onClick={() => setSidebarOpen(true)}
             style={{
               width: '38px', height: '38px', borderRadius: '50%',
@@ -156,7 +152,6 @@ function Performance() {
         </div>
       </nav>
 
-      {/* Main Content - Same rakha */}
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem 1rem' }}>
         <div style={{ marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#E2E8F0' }}>📊 Performance Tracker</h2>
