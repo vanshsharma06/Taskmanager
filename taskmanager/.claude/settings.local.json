@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npx sequelize-cli model:generate --name Project --attributes name:string,description:text)",
+      "PowerShell(npm install *)",
+      "PowerShell(npx sequelize-cli db:migrate)",
+      "PowerShell(node src/server.js)",
+      "PowerShell(node -e \"const models = require\\('./src/models'\\); console.log\\('Models loaded:', Object.keys\\(models\\).join\\(', '\\)\\)\")",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(node -e \"try{require\\('./src/models'\\);console.log\\('Models loaded OK'\\)}catch\\(e\\){console.error\\(e\\)}\")"
+    ]
+  }
+}
